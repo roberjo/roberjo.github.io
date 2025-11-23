@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="John B. Roberts - Software Craftsman. Professional portfolio and resume.">
+    <meta name="keywords" content="Software Engineer, Web Developer, Portfolio, John B. Roberts">
+    <meta name="author" content="John B. Roberts">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roberjo.github.io/">
+    <meta property="og:title" content="John B. Roberts - Software Craftsman">
+    <meta property="og:description" content="Professional portfolio and resume of John B. Roberts.">
+    <meta property="og:image" content="assets/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://roberjo.github.io/">
+    <meta property="twitter:title" content="John B. Roberts - Software Craftsman">
+    <meta property="twitter:description" content="Professional portfolio and resume of John B. Roberts.">
+    <meta property="twitter:image" content="assets/images/og-image.jpg">
+
+    <title>John B. Roberts | Software Craftsman</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">John<span>.</span></a>
+
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <span class="hero-greeting">Hello, I'm</span>
+                <h1 class="hero-title">John B. Roberts</h1>
+                <p class="hero-subtitle">AWS Solutions Architect & Cloud Engineer</p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="text-center fade-in">About Me</h2>
+            <div class="about-grid">
+                <div class="about-image fade-in">
+                    <!-- Placeholder image - Replace with your photo -->
+                    <img src="https://ui-avatars.com/api/?name=John+Roberts&background=3b82f6&color=fff&size=500"
+                        alt="John B. Roberts">
+                </div>
+                <div class="about-text fade-in">
+                    <h3>Building Scalable Cloud Solutions on AWS</h3>
+                    <p>I am a passionate AWS Solutions Architect based in Georgia, USA, with deep expertise in designing
+                        and deploying secure, high-availability cloud infrastructures. My focus is on leveraging modern
+                        DevOps practices and Generative AI to solve complex business problems.</p>
+                    <p>With a strong foundation in Python, TypeScript, and Infrastructure as Code (Terraform, CDK), I
+                        build systems that are not only robust but also cost-effective and easy to maintain. I enjoy
+                        bridging the gap between development and operations to deliver seamless digital experiences.</p>
+
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS Certified</span>
+                        <span class="skill-tag">Cloud Architecture</span>
+                        <span class="skill-tag">DevOps</span>
+                        <span class="skill-tag">Generative AI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="text-center fade-in">Experience</h2>
+            <div class="timeline">
+                <!-- Experience Item 1 -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Present</span>
+                        <h3>Cloud Architect / Engineer</h3>
+                        <h4>Freelance / Independent</h4>
+                        <p>Designing and implementing cloud-native solutions using AWS services. Specializing in
+                            serverless architectures, containerization (ECS/EKS), and automated CI/CD pipelines.</p>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Previous</span>
+                        <h3>Software Engineer</h3>
+                        <h4>Tech Industry</h4>
+                        <p>Developed full-stack applications and microservices. Gained extensive experience with Python,
+                            Node.js, and modern frontend frameworks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="text-center fade-in">Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="https://placehold.co/600x400/1e293b/FFF?text=IntelliDoc+RAG"
+                            alt="IntelliDoc RAG System">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">IntelliDoc RAG System</h3>
+                        <p class="project-desc">A Document Intelligence system using Retrieval-Augmented Generation.
+                            Processes documents to provide AI-powered insights and answers.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">LangChain</span>
+                            <span class="skill-tag">OpenAI API</span>
+                            <span class="skill-tag">AWS Lambda</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/roberjo/intellidoc-rag-system" class="icon-link"
+                                aria-label="GitHub Repo"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="https://placehold.co/600x400/1e293b/FFF?text=AdPilot" alt="AdPilot">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AdPilot</h3>
+                        <p class="project-desc">A Conversational AdTech Agent that automates ad campaign management
+                            using natural language processing.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">AWS EventBridge</span>
+                            <span class="skill-tag">OpenAI</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/roberjo/AdPilot" class="icon-link" aria-label="GitHub Repo"><i
+                                    class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="https://placehold.co/600x400/1e293b/FFF?text=Role+Fusion" alt="Role Fusion">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Role Fusion</h3>
+                        <p class="project-desc">A Dynamic RBAC (Role-Based Access Control) Platform featuring a modern
+                            UI and secure authentication.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">JWT</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/roberjo/role-fusion" class="icon-link"
+                                aria-label="GitHub Repo"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="https://github.com/roberjo" class="btn btn-outline">View More on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="text-center fade-in">Technical Skills</h2>
+            <div class="skills-container fade-in">
+                <!-- Cloud & DevOps -->
+                <div class="skill-category">
+                    <h3>Cloud & DevOps</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <span>AWS (Lambda, EC2, S3, ECS/EKS)</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>IaC (Terraform, CDK)</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Docker & Kubernetes</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>CI/CD (GitHub Actions, Jenkins)</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <span>Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>JavaScript / TypeScript</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Bash / Shell Scripting</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web & AI -->
+                <div class="skill-category">
+                    <h3>Web & AI</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <span>React & Tailwind CSS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>LangChain & OpenAI API</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Node.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="text-center fade-in">Get In Touch</h2>
+            <div class="contact-container fade-in">
+                <p class="text-center" style="margin-bottom: 2rem; color: var(--text-muted);">
+                    I'm currently available for freelance work and open to full-time opportunities.
+                    If you have a project that needs some creative touch, let's chat.
+                </p>
+
+                <!-- Formspree Contact Form -->
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+
+                <div class="text-center" style="margin-top: 3rem;">
+                    <div class="social-links" style="justify-content: center;">
+                        <a href="https://github.com/roberjo" class="icon-link" aria-label="GitHub"><i
+                                class="fab fa-github fa-2x"></i></a>
+                        <a href="https://linkedin.com/in/roberjo" class="icon-link" aria-label="LinkedIn"><i
+                                class="fab fa-linkedin fa-2x"></i></a>
+                        <a href="mailto:johnbroberts@gmail.com" class="icon-link" aria-label="Email"><i
+                                class="fas fa-envelope fa-2x"></i></a>
+                        <a href="http://johnbroberts.me" class="icon-link" aria-label="Website"><i
+                                class="fas fa-globe fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">John<span>.</span></div>
+                <p>&copy; <span id="current-year"></span> John B. Roberts. All rights reserved.</p>
+                <a href="#" class="nav-link">Back to Top <i class="fas fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

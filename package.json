@@ -1,0 +1,37 @@
+{
+  "name": "roberjo.github.io",
+  "version": "1.0.0",
+  "description": "A modern, responsive, and professional personal portfolio website designed for GitHub Pages.",
+  "main": "index.js",
+  "scripts": {
+    "lint:js": "eslint assets/js/**/*.js",
+    "lint:css": "stylelint assets/css/**/*.css",
+    "lint:html": "htmlhint **/*.html",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
+    "format": "prettier --write .",
+    "test": "playwright test",
+    "lhci": "lhci autorun"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roberjo/roberjo.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/roberjo/roberjo.github.io/issues"
+  },
+  "homepage": "https://github.com/roberjo/roberjo.github.io#readme",
+  "devDependencies": {
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.56.1",
+    "eslint": "^9.39.1",
+    "htmlhint": "^1.7.1",
+    "lighthouse": "^12.8.2",
+    "prettier": "^3.6.2",
+    "stylelint": "^16.26.0",
+    "stylelint-config-standard": "^39.0.1"
+  }
+}
