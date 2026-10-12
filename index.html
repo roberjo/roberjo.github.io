@@ -552,18 +552,27 @@
   <!-- Shell -->
   <dialog class="shell" id="shell" aria-label="Interactive shell">
     <div class="terminal">
-      <div class="terminal__bar">
-        <span class="terminal__dot"></span><span class="terminal__dot"></span><span class="terminal__dot"></span>
+      <div class="terminal__bar" title="Double-click to maximize">
+        <span class="win-btns">
+          <button class="terminal__dot win-btn win-btn--close" type="button" data-win="close" aria-label="Close shell"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 2.5l5 5M7.5 2.5l-5 5"/></svg></button>
+          <button class="terminal__dot win-btn win-btn--min" type="button" data-win="min" aria-label="Minimize shell"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 5h6"/></svg></button>
+          <button class="terminal__dot win-btn win-btn--max" type="button" data-win="max" aria-label="Maximize shell"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 6.5V2.5h4M7.5 3.5v4h-4"/></svg></button>
+        </span>
         <span class="terminal__title">roberjo@portfolio: ~</span>
+        <button class="terminal__tool" type="button" id="shell-sound" aria-pressed="true" aria-label="Mute modem sounds">🔊</button>
         <button class="terminal__close" type="button" data-shell-close aria-label="Close the shell">esc</button>
       </div>
       <div class="shell__out" id="shell-out" role="log" aria-live="polite"></div>
       <form class="shell__form" id="shell-form" autocomplete="off">
-        <label class="shell__prompt" for="shell-in">roberjo@portfolio:~$</label>
+        <label class="shell__prompt" for="shell-in" id="shell-prompt">roberjo@portfolio:~$</label>
         <input class="shell__in" id="shell-in" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="send">
       </form>
     </div>
   </dialog>
+
+  <button class="shell-dock" id="shell-dock" type="button" hidden aria-label="Restore the minimized shell">
+    <span class="shell-dock__dot" aria-hidden="true"></span> roberjo.sh <span class="shell-dock__hint">minimized · click to restore</span>
+  </button>
 
   <!-- Command palette -->
   <dialog class="palette" id="palette" aria-label="Command palette">

@@ -15,11 +15,25 @@ test.beforeEach(async ({ page }) => {
         route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(GH_FIXTURE) }));
 });
 
-async function openShell(page) {
+async function openShell(page, { stayInBbs = false } = {}) {
     await page.locator('body').click({ position: { x: 5, y: 300 } });
     await page.keyboard.press('Backquote');
     const input = page.locator('#shell-in');
+    const out = page.locator('#shell-out');
     await expect(input).toBeVisible();
+    // First open of a session dials The Matrix BBS. Any key skips the animation.
+    await expect(out).toContainText('ATDT');
+    await input.press('Enter');
+    await expect(out).toContainText('CONNECT 14400');
+    await expect(page.locator('#shell-prompt')).toHaveText('Enter your handle:');
+    await input.fill('tester');
+    await input.press('Enter');
+    await expect(out).toContainText('MAIN MENU');
+    if (stayInBbs) return input;
+    await input.fill('g');
+    await input.press('Enter');
+    await expect(out).toContainText('NO CARRIER');
+    await expect(page.locator('#shell-prompt')).toHaveText('roberjo@portfolio:~$');
     return input;
 }
 
@@ -157,6 +171,60 @@ test('konami code toggles mainframe mode', async ({ page, isMobile }) => {
         await page.keyboard.press(k);
     }
     await expect(page.locator('html')).toHaveAttribute('data-mainframe', '');
+});
+
+test('BBS: boards, file downloads, and log off', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'backtick shortcut is a desktop feature');
+    await page.goto('/');
+    const input = await openShell(page, { stayInBbs: true });
+    const out = page.locator('#shell-out');
+    const send = async (v) => { await input.fill(v); await input.press('Enter'); };
+    await expect(out).toContainText('a tribute to the 205 BBS scene');
+
+    await send('m');
+    await expect(out).toContainText('Mainframe Underground');
+    await send('2'); await send('1');
+    await expect(out).toContainText('mainframe-frontier');
+    await send(''); await send('q'); await send('q');
+
+    await send('f');
+    await expect(out).toContainText('Zero-Days');
+    await send('6'); await send('1');
+    await input.press('Enter'); // skip the transfer animation
+    await expect(out).toContainText('The real zero-day was the patch you didn\'t apply.');
+    await send(''); await send('q'); await send('q');
+
+    await send('w');
+    await expect(out).toContainText('tester');
+    await send('');
+    await send('g');
+    await expect(out).toContainText('NO CARRIER');
+
+    // Second open in the same session goes straight to the shell.
+    await page.keyboard.press('Escape');
+    await page.locator('body').click({ position: { x: 5, y: 300 } });
+    await page.keyboard.press('Backquote');
+    await expect(page.locator('#shell-prompt')).toHaveText('roberjo@portfolio:~$');
+});
+
+test('shell window buttons minimize, restore, maximize, close', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('[data-open-shell]').first().click();
+    const shell = page.locator('#shell');
+    await expect(shell).toBeVisible();
+    await page.locator('[data-win="max"]').click();
+    await expect(shell).toHaveClass(/is-max/);
+    await page.locator('[data-win="max"]').click();
+    await expect(shell).not.toHaveClass(/is-max/);
+    await page.locator('[data-win="min"]').click();
+    await expect(shell).toBeHidden();
+    await expect(page.locator('#shell-dock')).toBeVisible();
+    await page.locator('#shell-dock').click();
+    await expect(shell).toBeVisible();
+    await expect(page.locator('#shell-out')).toContainText('ATDT'); // the session kept its content
+    await page.locator('[data-win="close"]').click();
+    await expect(shell).toBeHidden();
+    await expect(page.locator('#shell-dock')).toBeHidden();
 });
 
 test('404 page and vault page load', async ({ page }) => {

@@ -5,6 +5,7 @@
 //
 import { PROFILE, PROJECTS, SKILLS, CAREER, EDUCATION } from "./data.js";
 import { getGithubSummary } from "./github.js";
+import { createBBS } from "./bbs.js";
 
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -101,9 +102,12 @@ export function initShell() {
   const input = document.getElementById("shell-in");
   if (!dialog || !out || !form || !input) return null;
 
+  const promptEl = document.getElementById("shell-prompt");
+  const DEFAULT_PROMPT = "roberjo@portfolio:~$";
   const history = store.get("shell.history", []);
   let hIdx = history.length;
   let booted = false;
+  let mode = null; // when set (the BBS), input goes here instead of the command table
 
   function line(html, cls) {
     const div = document.createElement("div");
@@ -111,9 +115,20 @@ export function initShell() {
     div.innerHTML = html;
     out.appendChild(div);
     out.scrollTop = out.scrollHeight;
+    return div;
+  }
+  function setPrompt(text) {
+    if (promptEl) promptEl.textContent = text === undefined ? DEFAULT_PROMPT : text;
   }
   const print = (text, cls) => line(esc(text), cls);
   const blank = () => line("&nbsp;");
+
+  const bbs = createBBS({
+    line, print, blank, esc, store, out,
+    setPrompt: (t) => setPrompt(t || ""),
+    setMode: (fn) => { mode = fn; if (!fn) setPrompt(); },
+    onExit: () => { booted = false; boot(); },
+  });
 
   function quest() { return store.get("quest.found", []); }
   function saveQuest(found) { store.set("quest.found", found); }
@@ -261,6 +276,17 @@ export function initShell() {
     war: { run: (a) => print(a[0] && a[0].toLowerCase() === "eagle" ? "WAR EAGLE! 🦅 (Auburn, 1999–2001)" : "war: what is it good for?", a[0] && a[0].toLowerCase() === "eagle" ? "sh-ok" : "sh-dim") },
     ping: { run: (a) => print(`PONG from ${a[0] || "roberjo"}: 0% packet loss, 100% caffeine`, "sh-dim") },
     coffee: { run: () => print("☕ Brewing … ETA: before the 3 a.m. page.", "sh-dim") },
+    bbs: { desc: "dial The Matrix BBS", run: () => { line(`<span class="sh-dim">Dialing …</span>`); return bbs.connect(); } },
+    sound: {
+      desc: "sound [on|off]",
+      complete: ["on", "off"],
+      run(args) {
+        const on = args[0] ? args[0] === "on" : !store.get("bbs.sound", true);
+        store.set("bbs.sound", on);
+        syncSound();
+        print(`Modem speaker ${on ? "on (ATM1)" : "off (ATM0)"}.`, "sh-dim");
+      },
+    },
     xyzzy: { run: () => print("A hollow voice says \"Fool.\" (Wrong adventure. Try 'quest'.)", "sh-dim") },
 
     /* ---- the adventure ---- */
@@ -356,6 +382,7 @@ export function initShell() {
     },
   };
   COMMANDS.inv = COMMANDS.inventory;
+  COMMANDS.dial = COMMANDS.atdt = { run: () => COMMANDS.bbs.run() };
 
   function findProject(q) {
     if (!q) return null;
@@ -364,6 +391,7 @@ export function initShell() {
   }
 
   async function exec(raw) {
+    if (mode) return mode(raw);
     const text = raw.trim();
     line(`<span class="sh-prompt">roberjo@portfolio:~$</span> ${esc(text)}`);
     if (!text) return;
@@ -387,6 +415,10 @@ export function initShell() {
   });
 
   input.addEventListener("keydown", (e) => {
+    if (mode) {
+      if (bbs.isAnimating()) { bbs.onKey(); if (e.key !== "Enter") e.preventDefault(); }
+      return;
+    }
     if (e.key === "ArrowUp") {
       if (hIdx > 0) { hIdx--; input.value = history[hIdx]; }
       e.preventDefault();
@@ -419,22 +451,88 @@ export function initShell() {
   function boot() {
     if (booted) return;
     booted = true;
+    setPrompt();
     line(`<span class="sh-ok">●</span> <span class="sh-dim">roberjo.sh v2.6 · ${new Date().toDateString()}</span>`);
     print(`Welcome. Type 'help' to look around.${store.get("quest.complete", false) ? " (Vault: unlocked. Nicely done.)" : ""}`);
   }
 
-  function open(prefill) {
+  /* ---------------- window chrome ---------------- */
+
+  const dock = document.getElementById("shell-dock");
+  const soundBtn = document.getElementById("shell-sound");
+
+  function syncSound() {
+    if (!soundBtn) return;
+    const on = store.get("bbs.sound", true);
+    soundBtn.setAttribute("aria-pressed", String(on));
+    soundBtn.setAttribute("aria-label", on ? "Mute modem sounds" : "Unmute modem sounds");
+    soundBtn.textContent = on ? "🔊" : "🔇";
+  }
+  soundBtn?.addEventListener("click", () => {
+    store.set("bbs.sound", !store.get("bbs.sound", true));
+    syncSound();
+    if (!store.get("bbs.sound", true)) bbs.hangUp();
+    input.focus();
+  });
+  syncSound();
+
+  function show() {
     if (!dialog.open) {
       if (typeof dialog.showModal === "function") dialog.showModal(); else dialog.setAttribute("open", "");
     }
-    boot();
+    if (dock) dock.hidden = true;
+    dialog.classList.remove("is-minimizing");
+  }
+
+  function open(prefill) {
+    show();
+    let dialed = false;
+    try { dialed = sessionStorage.getItem("bbs.dialed") === "1"; } catch (e) { dialed = true; }
+    if (!dialed && !prefill && !booted && !mode) {
+      try { sessionStorage.setItem("bbs.dialed", "1"); } catch (e) {}
+      bbs.connect();
+    } else if (!mode) {
+      boot();
+    }
     if (prefill) { input.value = ""; exec(prefill); }
     setTimeout(() => input.focus(), 0);
   }
-  function close() {
+
+  function hide() {
     if (typeof dialog.close === "function") dialog.close(); else dialog.removeAttribute("open");
   }
 
+  function close() {
+    bbs.hangUp();
+    dialog.classList.remove("is-max");
+    hide();
+    if (dock) dock.hidden = true;
+  }
+
+  function minimize() {
+    if (dock) dock.hidden = false;
+    if (reduceMotionPref()) { hide(); return; }
+    dialog.classList.add("is-minimizing");
+    setTimeout(() => { hide(); dialog.classList.remove("is-minimizing"); }, 220);
+  }
+
+  function toggleMax() {
+    const max = dialog.classList.toggle("is-max");
+    const b = dialog.querySelector('[data-win="max"]');
+    b?.setAttribute("aria-label", max ? "Restore shell size" : "Maximize shell");
+    out.scrollTop = out.scrollHeight;
+    input.focus();
+  }
+
+  function reduceMotionPref() { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+
+  dialog.querySelector('[data-win="close"]')?.addEventListener("click", close);
+  dialog.querySelector('[data-win="min"]')?.addEventListener("click", minimize);
+  dialog.querySelector('[data-win="max"]')?.addEventListener("click", toggleMax);
+  dialog.querySelector(".terminal__bar")?.addEventListener("dblclick", (e) => { if (!e.target.closest("button")) toggleMax(); });
+  dock?.addEventListener("click", () => { show(); setTimeout(() => input.focus(), 0); });
+  // Esc closes the dialog natively; make sure the modem hangs up too.
+  dialog.addEventListener("close", () => bbs.hangUp());
   dialog.addEventListener("click", (e) => { if (e.target === dialog) close(); });
   document.querySelectorAll("[data-shell-close]").forEach((b) => b.addEventListener("click", close));
 
