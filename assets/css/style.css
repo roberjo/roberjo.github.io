@@ -298,7 +298,15 @@ kbd {
 /* ---------- Terminal chrome (shared) ---------- */
 .terminal { border-radius: var(--radius); border: 1px solid var(--border-strong); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
 .terminal__bar { display: flex; align-items: center; gap: 7px; padding: 12px 14px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
-.terminal__dot { width: 11px; height: 11px; border-radius: 50%; background: var(--border-strong); }
+.terminal__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-strong); }
+.win-btns { display: inline-flex; gap: 8px; }
+.win-btn { border: 0; padding: 0; display: inline-grid; place-items: center; cursor: pointer; }
+.win-btn svg { width: 8px; height: 8px; fill: none; stroke: rgba(0, 0, 0, .65); stroke-width: 1.6; stroke-linecap: round; opacity: 0; transition: opacity .12s; }
+.terminal__bar:hover .win-btn svg, .win-btn:focus-visible svg { opacity: 1; }
+.win-btn:active { filter: brightness(.85); }
+.terminal__tool { margin-left: auto; font-size: 13px; line-height: 1; background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 6px; cursor: pointer; }
+.terminal__tool:hover { border-color: var(--border-strong); }
+.terminal__tool + .terminal__close { margin-left: 6px; }
 .terminal__dot:nth-child(1) { background: #ff5f57; }
 .terminal__dot:nth-child(2) { background: #febc2e; }
 .terminal__dot:nth-child(3) { background: #28c840; }
@@ -485,7 +493,48 @@ dialog { padding: 0; border: 0; background: transparent; color: var(--text); max
 dialog::backdrop { background: rgba(3, 6, 10, .55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 [data-theme="light"] dialog::backdrop { background: rgba(15, 23, 34, .28); }
 
-.shell { width: min(860px, calc(100vw - 24px)); margin: auto; }
+.shell { width: min(900px, calc(100vw - 24px)); margin: auto; }
+.shell .terminal__bar { cursor: default; user-select: none; }
+.shell.is-max { width: 100vw; height: 100vh; margin: 0; }
+.shell.is-max .terminal { height: 100vh; border-radius: 0; border: 0; }
+.shell.is-minimizing { animation: minimize .22s var(--ease) forwards; }
+@keyframes minimize { to { opacity: 0; transform: translate(-38vw, 42vh) scale(.12); } }
+
+.shell-dock {
+  position: fixed; left: 16px; bottom: 16px; z-index: 240;
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+  border-radius: 12px; border: 1px solid var(--border-strong); background: var(--surface); box-shadow: var(--shadow);
+  font: 600 13px/1 var(--font-mono); color: var(--text); cursor: pointer; animation: pop .2s var(--ease);
+}
+.shell-dock[hidden] { display: none; }
+.shell-dock:hover { border-color: var(--accent); }
+.shell-dock__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.shell-dock__hint { font-weight: 500; color: var(--text-faint); }
+@media (max-width: 520px) { .shell-dock__hint { display: none; } }
+
+/* ---------- BBS mode (classic 16-color ANSI, always on a black screen) ---------- */
+.shell .terminal:has(.shell__out.is-bbs) { background: #000; border-color: #1c1c3a; }
+.shell .terminal:has(.shell__out.is-bbs) .shell__form { border-top-color: #1c1c3a; }
+.shell .terminal:has(.shell__out.is-bbs) .shell__in { color: #fff; caret-color: #55ffff; }
+.shell .terminal:has(.shell__out.is-bbs) .shell__prompt { color: #55ffff; }
+.shell__out.is-bbs { background: #000; color: #aaa; text-shadow: 0 0 4px rgba(85, 255, 255, .18); }
+.shell__out.is-bbs a { color: #55ffff; text-decoration: underline; }
+.bbs-blu { color: #5555ff; }
+.bbs-cyn { color: #55ffff; }
+.bbs-mag { color: #ff55ff; }
+.bbs-yel { color: #ffff55; }
+.bbs-grn { color: #55ff55; }
+.bbs-red { color: #ff5555; }
+.bbs-wht { color: #fff; }
+.bbs-dim { color: #888; }
+.bbs-b { font-weight: 700; }
+.bbs-key { color: #55ffff; font-weight: 700; }
+.bbs-body { color: #ccc; }
+.bbs-banner-line { line-height: 1.02; letter-spacing: 0; }
+.bbs-banner {
+  background: linear-gradient(90deg, #55ffff, #5555ff 35%, #ff55ff 65%, #ffff55);
+  -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none;
+}
 .shell[open] { animation: pop .18s var(--ease); }
 .shell .terminal { display: flex; flex-direction: column; height: min(560px, calc(100svh - 48px)); background: color-mix(in srgb, var(--surface) 94%, transparent); }
 .shell__out { flex: 1; overflow-y: auto; padding: 16px 18px 8px; font: 13.5px/1.7 var(--font-mono); }

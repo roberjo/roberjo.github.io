@@ -15,11 +15,25 @@ test.beforeEach(async ({ page }) => {
         route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(GH_FIXTURE) }));
 });
 
-async function openShell(page) {
+async function openShell(page, { stayInBbs = false } = {}) {
     await page.locator('body').click({ position: { x: 5, y: 300 } });
     await page.keyboard.press('Backquote');
     const input = page.locator('#shell-in');
+    const out = page.locator('#shell-out');
     await expect(input).toBeVisible();
+    // First open of a session dials The Matrix BBS. Any key skips the animation.
+    await expect(out).toContainText('ATDT');
+    await input.press('Enter');
+    await expect(out).toContainText('CONNECT 14400');
+    await expect(page.locator('#shell-prompt')).toHaveText('Enter your handle:');
+    await input.fill('tester');
+    await input.press('Enter');
+    await expect(out).toContainText('MAIN MENU');
+    if (stayInBbs) return input;
+    await input.fill('g');
+    await input.press('Enter');
+    await expect(out).toContainText('NO CARRIER');
+    await expect(page.locator('#shell-prompt')).toHaveText('roberjo@portfolio:~$');
     return input;
 }
 
@@ -157,6 +171,94 @@ test('konami code toggles mainframe mode', async ({ page, isMobile }) => {
         await page.keyboard.press(k);
     }
     await expect(page.locator('html')).toHaveAttribute('data-mainframe', '');
+});
+
+test('BBS: boards, file downloads, and log off', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'backtick shortcut is a desktop feature');
+    await page.goto('/');
+    const input = await openShell(page, { stayInBbs: true });
+    const out = page.locator('#shell-out');
+    const send = async (v) => { await input.fill(v); await input.press('Enter'); };
+    await expect(out).toContainText('a tribute to the 205 BBS scene');
+
+    await send('m');
+    await expect(out).toContainText('Mainframe Underground');
+    await send('2'); await send('1');
+    await expect(out).toContainText('mainframe-frontier');
+    await expect(page.locator('#shell-prompt')).toHaveText('[Enter] back:');
+    await send(''); await send('q'); await send('q');
+
+    await send('f');
+    await expect(out).toContainText('Zero-Days');
+    await send('6'); await send('1');
+    await input.press('Enter'); // skip the transfer animation
+    await expect(out).toContainText('The real zero-day was the patch you didn\'t apply.');
+    await expect(page.locator('#shell-prompt')).toHaveText('[Enter] back:');
+    await send(''); await send('q'); await send('q');
+
+    await send('w');
+    await expect(out).toContainText('tester');
+    await send('');
+    await send('g');
+    await expect(out).toContainText('NO CARRIER');
+
+    // Second open in the same session goes straight to the shell.
+    await page.keyboard.press('Escape');
+    await page.locator('body').click({ position: { x: 5, y: 300 } });
+    await page.keyboard.press('Backquote');
+    await expect(page.locator('#shell-prompt')).toHaveText('roberjo@portfolio:~$');
+});
+
+test('shell window buttons minimize, restore, maximize, close', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('[data-open-shell]').first().click();
+    const shell = page.locator('#shell');
+    await expect(shell).toBeVisible();
+    await page.locator('[data-win="max"]').click();
+    await expect(shell).toHaveClass(/is-max/);
+    await page.locator('[data-win="max"]').click();
+    await expect(shell).not.toHaveClass(/is-max/);
+    await page.locator('[data-win="min"]').click();
+    await expect(shell).toBeHidden();
+    await expect(page.locator('#shell-dock')).toBeVisible();
+    await page.locator('#shell-dock').click();
+    await expect(shell).toBeVisible();
+    await expect(page.locator('#shell-out')).toContainText('ATDT'); // the session kept its content
+    await page.locator('[data-win="close"]').click();
+    await expect(shell).toBeHidden();
+    await expect(page.locator('#shell-dock')).toBeHidden();
+});
+
+test('phreak: whistle seizes a trunk, bluebox reaches Lisbon time and temperature', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'backtick shortcut is a desktop feature');
+    // Headless browsers may expose voices without an audio device, so speech never ends; the
+    // transcript is what's under test here, not the browser's text-to-speech engine.
+    await page.addInitScript(() => { Object.defineProperty(window, 'speechSynthesis', { value: undefined }); });
+    await page.route('https://api.open-meteo.com/**', (route) =>
+        route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ current: { temperature_2m: 21.4 } }) }));
+    await page.goto('/');
+    const input = await openShell(page);
+    const out = page.locator('#shell-out');
+    const send = async (v) => { await input.fill(v); await input.press('Enter'); };
+
+    await send('bluebox palace');
+    await expect(out).toContainText('no trunk');
+    await send('whistle');
+    await expect(out).toContainText('2600 Hz');
+    await expect(out).toContainText('The trunk is idle');
+    await send('bluebox palace');
+    await expect(out).toContainText('KP 44 2079460018 ST');
+    await expect(out).toContainText('Buckingham Palace switchboard (simulated)', { timeout: 15000 });
+    await expect(out).toContainText('The operator hung up', { timeout: 15000 });
+
+    await send('bluebox lisbon');
+    await expect(out).toContainText('Lisbon time and temperature', { timeout: 15000 });
+    const lisbon = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date());
+    await expect(out).toContainText(`At the tone, the time in Lisbon will be`, { timeout: 15000 });
+    await expect(out).toContainText(lisbon.slice(0, 2));
+    await expect(out).toContainText('Temperature in Lisbon: 21 °C');
+    await send('hangup');
+    await expect(out).toContainText('Line released');
 });
 
 test('404 page and vault page load', async ({ page }) => {
