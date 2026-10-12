@@ -1,373 +1,386 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="John B. Roberts - Software Craftsman. Professional portfolio and resume.">
-    <meta name="keywords" content="Software Engineer, Web Developer, Portfolio, John B. Roberts">
-    <meta name="author" content="John B. Roberts">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>John B. Roberts · AWS Solutions Architect & AI Automation</title>
+  <meta name="description" content="John B. Roberts builds cloud architectures on AWS, automation that removes toil, and AI workflows that put LLMs to work inside real engineering processes.">
+  <meta name="author" content="John B. Roberts">
+  <link rel="canonical" href="https://roberjo.github.io/">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://roberjo.github.io/">
-    <meta property="og:title" content="John B. Roberts - Software Craftsman">
-    <meta property="og:description" content="Professional portfolio and resume of John B. Roberts.">
-    <meta property="og:image" content="assets/images/og-image.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="John B. Roberts · AWS Solutions Architect & AI Automation">
+  <meta property="og:description" content="Cloud architecture, automation, and AI workflows that give the people using them an unfair advantage.">
+  <meta property="og:url" content="https://roberjo.github.io/">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/1117485?v=4">
+  <meta name="twitter:card" content="summary">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://roberjo.github.io/">
-    <meta property="twitter:title" content="John B. Roberts - Software Craftsman">
-    <meta property="twitter:description" content="Professional portfolio and resume of John B. Roberts.">
-    <meta property="twitter:image" content="assets/images/og-image.jpg">
+  <meta name="theme-color" content="#0a0e14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0e14'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-weight='700' font-size='30' fill='%2338d9c0'%3EJR%3C/text%3E%3C/svg%3E">
 
-    <title>John B. Roberts | Software Craftsman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+  <script>
+    // Apply the saved or preferred theme before first paint to avoid a flash.
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "John B. Roberts",
+    "jobTitle": "AWS Solutions Architect",
+    "url": "https://roberjo.github.io/",
+    "image": "https://avatars.githubusercontent.com/u/1117485?v=4",
+    "address": { "@type": "PostalAddress", "addressRegion": "GA", "addressCountry": "US" },
+    "sameAs": ["https://github.com/roberjo", "https://linkedin.com/in/roberjo"],
+    "knowsAbout": ["AWS", "Cloud Architecture", "Terraform", "Serverless", "AI Automation", "LLM Agents", "DevOps", "Mainframe Modernization"]
+  }
+  </script>
 </head>
-
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">John<span>.</span></a>
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="#top" aria-label="John B. Roberts, home">
+        <span class="nav__prompt">~/</span>roberjo<span class="nav__cursor" aria-hidden="true"></span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links" id="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#stack">Stack</a></li>
+          <li><a href="#writing">Writing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch color theme">
+          <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
 
-            <div class="nav-links">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
-                    <i class="fas fa-sun"></i>
-                </button>
-                <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__grid-bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Georgia, USA · Open to consulting &amp; full-time roles</p>
+          <h1 class="hero__title">John B. Roberts</h1>
+          <p class="hero__role">AWS Solutions Architect <span class="sep">/</span> AI Automation</p>
+          <p class="hero__lede">
+            I build <strong>high-leverage software systems</strong>: cloud architectures on AWS,
+            automation that removes toil, and AI workflows that put LLMs to work inside real
+            engineering processes. Secure, cost-aware, observable, and tested.
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#projects">View projects</a>
+            <a class="btn btn--ghost" href="#contact">Get in touch</a>
+          </div>
+          <ul class="hero__certs" aria-label="Certifications">
+            <li><span class="badge badge--aws">AWS</span> Solutions Architect – Professional</li>
+            <li><span class="badge badge--aws">AWS</span> DevOps Engineer – Professional</li>
+          </ul>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content fade-in">
-                <span class="hero-greeting">Hello, I'm</span>
-                <h1 class="hero-title">John B. Roberts</h1>
-                <p class="hero-subtitle">AWS Solutions Architect & Cloud Engineer</p>
-
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-outline">Contact Me</a>
-                </div>
-            </div>
+        <div class="terminal" role="img" aria-label="Terminal showing a summary of John's focus areas">
+          <div class="terminal__bar">
+            <span class="terminal__dot"></span><span class="terminal__dot"></span><span class="terminal__dot"></span>
+            <span class="terminal__title">roberjo@cloud: ~</span>
+          </div>
+          <pre class="terminal__body" id="terminal-body"><span class="t-prompt">$</span> whoami
+<span class="t-out">john-b-roberts  # AWS Solutions Architect</span>
+<span class="t-prompt">$</span> cat focus.yaml
+<span class="t-key">cloud:</span>      <span class="t-val">[aws, terraform, serverless]</span>
+<span class="t-key">ai:</span>         <span class="t-val">[llm-agents, claude, gemini]</span>
+<span class="t-key">automation:</span> <span class="t-val">[jira, servicenow, ci-cd]</span>
+<span class="t-key">legacy:</span>     <span class="t-val">[cobol, jcl, mainframe]</span>
+<span class="t-prompt">$</span> make impact
+<span class="t-ok">✔</span> <span class="t-out">less toil, fewer 3 a.m. pages, faster delivery</span>
+<span class="t-prompt">$</span> <span class="t-caret" aria-hidden="true"></span></pre>
         </div>
-        <div class="hero-visual"></div>
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="text-center fade-in">About Me</h2>
-            <div class="about-grid">
-                <div class="about-image fade-in">
-                    <!-- Placeholder image - Replace with your photo -->
-                    <img src="https://ui-avatars.com/api/?name=John+Roberts&background=3b82f6&color=fff&size=500"
-                        alt="John B. Roberts">
-                </div>
-                <div class="about-text fade-in">
-                    <h3>Building Scalable Cloud Solutions on AWS</h3>
-                    <p>I am a passionate AWS Solutions Architect based in Georgia, USA, with deep expertise in designing
-                        and deploying secure, high-availability cloud infrastructures. My focus is on leveraging modern
-                        DevOps practices and Generative AI to solve complex business problems.</p>
-                    <p>With a strong foundation in Python, TypeScript, and Infrastructure as Code (Terraform, CDK), I
-                        build systems that are not only robust but also cost-effective and easy to maintain. I enjoy
-                        bridging the gap between development and operations to deliver seamless digital experiences.</p>
-
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS Certified</span>
-                        <span class="skill-tag">Cloud Architecture</span>
-                        <span class="skill-tag">DevOps</span>
-                        <span class="skill-tag">Generative AI</span>
-                    </div>
-                </div>
-            </div>
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="about__media">
+          <img src="https://avatars.githubusercontent.com/u/1117485?v=4&s=480" alt="Portrait of John B. Roberts" width="240" height="240" loading="lazy">
         </div>
+        <div>
+          <p class="section__kicker">01 · About</p>
+          <h2 class="section__title">Enterprise cloud architecture, applied to automation and AI</h2>
+          <p>
+            My background is designing and running enterprise systems on AWS: multi-account
+            organizations, serverless and event-driven platforms, and the infrastructure as code,
+            security controls, and observability that keep them healthy.
+          </p>
+          <p>
+            Lately I point that discipline at a different problem: getting real leverage out of
+            LLMs. That means agents that turn vulnerability tickets into reviewed pull requests,
+            tooling that teaches AI coding agents to use the tools your team already relies on,
+            and modern engineering wrapped around systems most people would rather not touch,
+            like mainframe COBOL batch.
+          </p>
+          <ul class="principles">
+            <li><span class="principles__k">Ship it tested.</span> CI, golden files, and end-to-end tests are part of the design, not an afterthought.</li>
+            <li><span class="principles__k">Make it visible.</span> If nobody can see into a system, it isn't done.</li>
+            <li><span class="principles__k">Spend deliberately.</span> Many of my projects run entirely on free tiers, by design.</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="text-center fade-in">Experience</h2>
-            <div class="timeline">
-                <!-- Experience Item 1 -->
-                <div class="timeline-item fade-in">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date">Present</span>
-                        <h3>Cloud Architect / Engineer</h3>
-                        <h4>Freelance / Independent</h4>
-                        <p>Designing and implementing cloud-native solutions using AWS services. Specializing in
-                            serverless architectures, containerization (ECS/EKS), and automated CI/CD pipelines.</p>
-                    </div>
-                </div>
-
-                <!-- Experience Item 2 -->
-                <div class="timeline-item fade-in">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date">Previous</span>
-                        <h3>Software Engineer</h3>
-                        <h4>Tech Industry</h4>
-                        <p>Developed full-stack applications and microservices. Gained extensive experience with Python,
-                            Node.js, and modern frontend frameworks.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Capabilities -->
+    <section class="section section--alt" id="capabilities">
+      <div class="container">
+        <p class="section__kicker">02 · Capabilities</p>
+        <h2 class="section__title">What I bring to a team</h2>
+        <div class="cards cards--3">
+          <article class="card cap">
+            <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.9-9.9A6 6 0 0 1 17.6 9 4.5 4.5 0 0 1 17 18H7z"/></svg></div>
+            <h3>Cloud architecture</h3>
+            <p>Multi-region, highly available, event-driven designs on AWS: Lambda, API Gateway, DynamoDB, EventBridge, Step Functions, SNS/SQS, ECS/EKS.</p>
+          </article>
+          <article class="card cap">
+            <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 4.6 5 .7-3.6 3.5.9 5L12 14.5 7.5 16.8l.9-5L4.8 8.3l5-.7L12 3z"/></svg></div>
+            <h3>AI-powered automation</h3>
+            <p>LLM agents wired into real workflows: ticket-to-PR remediation, provider-agnostic design across Claude and Gemini, and guardrails around what the model can touch.</p>
+          </article>
+          <article class="card cap">
+            <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg></div>
+            <h3>Agent &amp; developer tooling</h3>
+            <p>Context for coding agents (Claude Code Skills, AGENTS.md, GEMINI.md, Copilot instructions) and CLIs that make engineers faster.</p>
+          </article>
+          <article class="card cap">
+            <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v4H4zM4 14h16v4H4zM8 8h.01M8 16h.01"/></svg></div>
+            <h3>Infrastructure as Code</h3>
+            <p>Terraform, CloudFormation, and AWS CDK, with drift checks, idempotent plans, and AWS Organizations landing zones.</p>
+          </article>
+          <article class="card cap">
+            <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div>
+            <h3>Security &amp; reliability</h3>
+            <p>Zero Trust, automated security controls, SOC 2 / ISO 27001 alignment, and observability with CloudWatch, X-Ray, Prometheus, and Grafana.</p>
+          </article>
+          <article class="card cap">
+            <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
+            <h3>Legacy modernization</h3>
+            <p>Keep the COBOL, surround it with first-class tooling: job visibility, EBCDIC and packed-decimal data access, monitoring, and a modern dev loop.</p>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="text-center fade-in">Featured Projects</h2>
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <article class="project-card fade-in">
-                    <div class="project-image">
-                        <img src="https://placehold.co/600x400/1e293b/FFF?text=IntelliDoc+RAG"
-                            alt="IntelliDoc RAG System">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">IntelliDoc RAG System</h3>
-                        <p class="project-desc">A Document Intelligence system using Retrieval-Augmented Generation.
-                            Processes documents to provide AI-powered insights and answers.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">LangChain</span>
-                            <span class="skill-tag">OpenAI API</span>
-                            <span class="skill-tag">AWS Lambda</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/roberjo/intellidoc-rag-system" class="icon-link"
-                                aria-label="GitHub Repo"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 2 -->
-                <article class="project-card fade-in">
-                    <div class="project-image">
-                        <img src="https://placehold.co/600x400/1e293b/FFF?text=AdPilot" alt="AdPilot">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">AdPilot</h3>
-                        <p class="project-desc">A Conversational AdTech Agent that automates ad campaign management
-                            using natural language processing.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">TypeScript</span>
-                            <span class="skill-tag">Node.js</span>
-                            <span class="skill-tag">AWS EventBridge</span>
-                            <span class="skill-tag">OpenAI</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/roberjo/AdPilot" class="icon-link" aria-label="GitHub Repo"><i
-                                    class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 3 -->
-                <article class="project-card fade-in">
-                    <div class="project-image">
-                        <img src="https://placehold.co/600x400/1e293b/FFF?text=Role+Fusion" alt="Role Fusion">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Role Fusion</h3>
-                        <p class="project-desc">A Dynamic RBAC (Role-Based Access Control) Platform featuring a modern
-                            UI and secure authentication.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">Tailwind CSS</span>
-                            <span class="skill-tag">Node.js</span>
-                            <span class="skill-tag">JWT</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/roberjo/role-fusion" class="icon-link"
-                                aria-label="GitHub Repo"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            <div class="text-center" style="margin-top: 3rem;">
-                <a href="https://github.com/roberjo" class="btn btn-outline">View More on GitHub</a>
-            </div>
+    <!-- Projects -->
+    <section class="section" id="projects">
+      <div class="container">
+        <p class="section__kicker">03 · Projects</p>
+        <div class="section__head">
+          <h2 class="section__title">Selected work</h2>
+          <div class="filters" role="group" aria-label="Filter projects">
+            <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="chip" type="button" data-filter="ai" aria-pressed="false">AI</button>
+            <button class="chip" type="button" data-filter="cloud" aria-pressed="false">Cloud</button>
+            <button class="chip" type="button" data-filter="legacy" aria-pressed="false">Legacy</button>
+            <button class="chip" type="button" data-filter="web" aria-pressed="false">Web</button>
+          </div>
         </div>
+
+        <div class="cards cards--2 projects" id="project-list">
+          <article class="card project project--feature" data-tags="legacy">
+            <header class="project__head">
+              <span class="project__label">Rust · COBOL</span>
+              <a class="project__repo" href="https://github.com/roberjo/mainframe-frontier" aria-label="mainframe-frontier on GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+            </header>
+            <h3><a href="https://github.com/roberjo/mainframe-frontier">mainframe-frontier</a></h3>
+            <p>A realistic COBOL batch shop (JCL job streams, copybooks, EBCDIC packed-decimal files) that runs in a container without a mainframe, surrounded by the tooling production shops rarely have: job visibility, data interfacing, monitoring, and a modern development loop.</p>
+            <pre class="project__snippet"><code>$ frontier ds print 'FFB.ACCTMAST(0)' --format jsonl</code></pre>
+            <ul class="tags"><li>Rust</li><li>GnuCOBOL</li><li>JCL</li><li>Docker</li><li>GitHub Actions</li></ul>
+          </article>
+
+          <article class="card project project--feature" data-tags="ai cloud">
+            <header class="project__head">
+              <span class="project__label">AI automation</span>
+              <a class="project__repo" href="https://github.com/roberjo/ticket-remediation" aria-label="ticket-remediation on GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+            </header>
+            <h3><a href="https://github.com/roberjo/ticket-remediation">ticket-remediation</a></h3>
+            <p>From vulnerability finding to pull request. One pipeline turns ServiceNow application-vulnerability findings into Jira issues; the other has an LLM read the target repo, write the fix, and open a GitHub PR, then notifies the team over Teams, Slack, and email.</p>
+            <div class="flow" aria-label="Pipeline: ServiceNow to Jira to LLM to GitHub PR">
+              <span>ServiceNow</span><span class="flow__arrow" aria-hidden="true">→</span><span>Jira</span><span class="flow__arrow" aria-hidden="true">→</span><span>LLM</span><span class="flow__arrow" aria-hidden="true">→</span><span>PR</span>
+            </div>
+            <ul class="tags"><li>Python</li><li>Claude API</li><li>Gemini</li><li>Jira</li><li>ServiceNow</li></ul>
+          </article>
+
+          <article class="card project" data-tags="ai">
+            <header class="project__head">
+              <span class="project__label">Agent tooling</span>
+              <a class="project__repo" href="https://github.com/roberjo/tool-enabler" aria-label="tool-enabler on GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+            </header>
+            <h3><a href="https://github.com/roberjo/tool-enabler">tool-enabler</a></h3>
+            <p>Teaches AI coding agents to use your tools. One catalog of "how to use this tool" knowledge for CLIs and HTTP-only systems (Jira, Slack, Splunk, Jenkins, Harness), compiled into Claude Code Skills, AGENTS.md, GEMINI.md, and Copilot instructions.</p>
+            <ul class="tags"><li>Python</li><li>Claude Code</li><li>Copilot</li><li>Gemini CLI</li><li>Codex</li></ul>
+          </article>
+
+          <article class="card project" data-tags="cloud">
+            <header class="project__head">
+              <span class="project__label">AWS · IaC</span>
+              <a class="project__repo" href="https://github.com/roberjo/aws-testing" aria-label="aws-testing on GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+            </header>
+            <h3><a href="https://github.com/roberjo/aws-testing">aws-testing</a></h3>
+            <p>Can a full event-driven AWS app be deployed and tested on a laptop? About 70 Terraform resources (Lambda, SNS/SQS with DLQs, DynamoDB Streams, S3, Kafka, CloudFront, Route 53) plus a Next.js front end, verified by 22 end-to-end tests, with 15 documented emulator findings.</p>
+            <ul class="tags"><li>Terraform</li><li>Lambda</li><li>SNS/SQS</li><li>DynamoDB</li><li>Kafka</li><li>Next.js</li></ul>
+          </article>
+
+          <article class="card project" data-tags="cloud web">
+            <header class="project__head">
+              <span class="project__label">Edge · full stack</span>
+              <a class="project__repo" href="https://github.com/roberjo/VINScout" aria-label="VINScout on GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+            </header>
+            <h3><a href="https://github.com/roberjo/VINScout">VINScout</a></h3>
+            <p>Used-vehicle opportunity screening. Pulls real listings every 6 hours, normalizes them by VIN, and gates every vehicle on its history (accident, salvage, flood) before ranking it on price, mileage, and NHTSA recall data. Runs entirely on free tiers.</p>
+            <ul class="tags"><li>TypeScript</li><li>Cloudflare Workers</li><li>Hono</li><li>D1</li><li>React</li></ul>
+          </article>
+
+          <article class="card project" data-tags="web">
+            <header class="project__head">
+              <span class="project__label">Web app</span>
+              <span class="project__links">
+                <a class="project__live" href="https://roberjo.github.io/world-radio/">Live demo ↗</a>
+                <a class="project__repo" href="https://github.com/roberjo/world-radio" aria-label="world-radio on GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+              </span>
+            </header>
+            <h3><a href="https://roberjo.github.io/world-radio/">world-radio</a></h3>
+            <p>Listen to the world's radio on a live map: 5,000+ geo-located stations on a clustered map, HLS playback, a regional "radio scanner" mode, and shareable station lists.</p>
+            <ul class="tags"><li>TypeScript</li><li>Vite</li><li>Leaflet</li><li>HLS.js</li></ul>
+          </article>
+        </div>
+
+        <h3 class="subhead">More projects</h3>
+        <div class="cards cards--3 mini-list" id="mini-list">
+          <a class="card mini" data-tags="ai cloud" href="https://github.com/roberjo/AuraStream"><h4>AuraStream</h4><p>Serverless sentiment analysis API, real-time and batch, with PII protection and caching.</p><span class="mini__tech">Python · Lambda · Comprehend · Terraform</span></a>
+          <a class="card mini" data-tags="ai web" href="https://github.com/roberjo/AdPilot"><h4>AdPilot</h4><p>Conversational AdTech agent system.</p><span class="mini__tech">Next.js · Vercel AI SDK · Claude / OpenAI / Gemini</span></a>
+          <a class="card mini" data-tags="ai" href="https://github.com/roberjo/intellidoc-rag-system"><h4>IntelliDoc RAG</h4><p>Query and summarize document collections with LLMs, with source citations.</p><span class="mini__tech">FastAPI · ChromaDB · PostgreSQL</span></a>
+          <a class="card mini" data-tags="legacy" href="https://github.com/roberjo/usps-cobol-addresses"><h4>usps-cobol-addresses</h4><p>A mainframe COBOL/DB2 batch job recreated locally, with commit/restart and golden-file CI.</p><span class="mini__tech">GnuCOBOL · GixSQL · PostgreSQL</span></a>
+          <a class="card mini" data-tags="ai" href="https://github.com/roberjo/guardrail-radar"><h4>guardrail-radar</h4><p>Zero-budget, source-grounded content discovery for an AI-assisted-development newsletter.</p><span class="mini__tech">Python · GitHub Actions · Pages</span></a>
+          <a class="card mini" data-tags="cloud" href="https://github.com/roberjo/aws-multi-account-organization"><h4>aws-multi-account-organization</h4><p>AWS Organizations with automated account provisioning and centralized security.</p><span class="mini__tech">Terraform · AWS Organizations</span></a>
+          <a class="card mini" data-tags="cloud" href="https://github.com/roberjo/aurora-batch"><h4>aurora-batch</h4><p>Serverless replication from Aurora PostgreSQL to Snowflake over PrivateLink.</p><span class="mini__tech">Terraform Cloud · Aurora · Snowflake</span></a>
+          <a class="card mini" data-tags="web" href="https://role-fusion.lovable.app/"><h4>role-fusion</h4><p>Role-based access control UI with granular permissions and dynamic roles.</p><span class="mini__tech">React · TypeScript · Tailwind</span></a>
+          <a class="card mini" data-tags="legacy" href="https://github.com/roberjo/ssis-parser"><h4>ssis-parser</h4><p>Parses and analyzes SSIS packages and migrates them to Python-based ETL.</p><span class="mini__tech">Python · CLI</span></a>
+        </div>
+        <p class="more-link"><a href="https://github.com/roberjo?tab=repositories">All repositories on GitHub →</a></p>
+      </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section" style="background-color: var(--bg-secondary);">
-        <div class="container">
-            <h2 class="text-center fade-in">Technical Skills</h2>
-            <div class="skills-container fade-in">
-                <!-- Cloud & DevOps -->
-                <div class="skill-category">
-                    <h3>Cloud & DevOps</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span>AWS (Lambda, EC2, S3, ECS/EKS)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>IaC (Terraform, CDK)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Docker & Kubernetes</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>CI/CD (GitHub Actions, Jenkins)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Languages -->
-                <div class="skill-category">
-                    <h3>Languages</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span>Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>JavaScript / TypeScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Bash / Shell Scripting</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Web & AI -->
-                <div class="skill-category">
-                    <h3>Web & AI</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span>React & Tailwind CSS</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>LangChain & OpenAI API</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Node.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Stack -->
+    <section class="section section--alt" id="stack">
+      <div class="container">
+        <p class="section__kicker">04 · Stack</p>
+        <h2 class="section__title">Tools I reach for</h2>
+        <div class="stack">
+          <div class="stack__group">
+            <h3>Cloud</h3>
+            <ul class="tags tags--lg"><li>AWS Lambda</li><li>API Gateway</li><li>DynamoDB</li><li>S3</li><li>EventBridge</li><li>Step Functions</li><li>SNS / SQS</li><li>ECS / EKS</li><li>CloudFront</li><li>Organizations</li><li>Cloudflare Workers</li></ul>
+          </div>
+          <div class="stack__group">
+            <h3>AI &amp; agents</h3>
+            <ul class="tags tags--lg"><li>Anthropic Claude</li><li>Claude Code</li><li>Google Gemini</li><li>OpenAI</li><li>GitHub Copilot</li><li>RAG</li></ul>
+          </div>
+          <div class="stack__group">
+            <h3>Infrastructure &amp; delivery</h3>
+            <ul class="tags tags--lg"><li>Terraform</li><li>CloudFormation</li><li>AWS CDK</li><li>Docker</li><li>Kubernetes</li><li>GitHub Actions</li><li>Harness</li><li>Jenkins</li></ul>
+          </div>
+          <div class="stack__group">
+            <h3>Languages &amp; frameworks</h3>
+            <ul class="tags tags--lg"><li>Python</li><li>TypeScript</li><li>Rust</li><li>COBOL</li><li>C# / .NET</li><li>Bash</li><li>React</li><li>Next.js</li><li>FastAPI</li><li>Hono</li></ul>
+          </div>
+          <div class="stack__group">
+            <h3>Observability &amp; security</h3>
+            <ul class="tags tags--lg"><li>CloudWatch</li><li>X-Ray</li><li>Prometheus</li><li>Grafana</li><li>ELK</li><li>Zero Trust</li><li>SOC 2 / ISO 27001</li></ul>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="text-center fade-in">Get In Touch</h2>
-            <div class="contact-container fade-in">
-                <p class="text-center" style="margin-bottom: 2rem; color: var(--text-muted);">
-                    I'm currently available for freelance work and open to full-time opportunities.
-                    If you have a project that needs some creative touch, let's chat.
-                </p>
-
-                <!-- Formspree Contact Form -->
-                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
-                    <div class="form-group">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" id="name" name="name" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea id="message" name="message" class="form-textarea" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-
-                <div class="text-center" style="margin-top: 3rem;">
-                    <div class="social-links" style="justify-content: center;">
-                        <a href="https://github.com/roberjo" class="icon-link" aria-label="GitHub"><i
-                                class="fab fa-github fa-2x"></i></a>
-                        <a href="https://linkedin.com/in/roberjo" class="icon-link" aria-label="LinkedIn"><i
-                                class="fab fa-linkedin fa-2x"></i></a>
-                        <a href="mailto:johnbroberts@gmail.com" class="icon-link" aria-label="Email"><i
-                                class="fas fa-envelope fa-2x"></i></a>
-                        <a href="http://johnbroberts.me" class="icon-link" aria-label="Website"><i
-                                class="fas fa-globe fa-2x"></i></a>
-                    </div>
-                </div>
-            </div>
+    <!-- Writing -->
+    <section class="section" id="writing">
+      <div class="container">
+        <p class="section__kicker">05 · Writing</p>
+        <h2 class="section__title">Notes on architecture</h2>
+        <div class="cards cards--2">
+          <a class="card article" href="https://github.com/roberjo/roberjo/blob/main/serverless-patterns.md">
+            <span class="article__meta">Serverless · Architecture</span>
+            <h3>Serverless Architecture Patterns for Enterprise Applications</h3>
+            <p>Proven patterns for scalable, event-driven applications.</p>
+          </a>
+          <a class="card article" href="https://github.com/roberjo/roberjo/blob/main/aws-cost-optimization.md">
+            <span class="article__meta">FinOps · AWS</span>
+            <h3>Cost Optimization Strategies for AWS Infrastructure</h3>
+            <p>Practical FinOps: finding and keeping savings.</p>
+          </a>
+          <a class="card article" href="https://github.com/roberjo/roberjo/blob/main/aws-zero-trust.md">
+            <span class="article__meta">Security · AWS</span>
+            <h3>Implementing Zero Trust Security in AWS</h3>
+            <p>Security-first architecture design, layer by layer.</p>
+          </a>
+          <a class="card article" href="https://github.com/roberjo/roberjo/blob/main/Microfrontends-Build.md">
+            <span class="article__meta">Frontend · AI-assisted build</span>
+            <h3>Production-Ready Microfrontend Build with Codex</h3>
+            <p>Building a React portal on microfrontends with OpenAI Codex.</p>
+          </a>
         </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo">John<span>.</span></div>
-                <p>&copy; <span id="current-year"></span> John B. Roberts. All rights reserved.</p>
-                <a href="#" class="nav-link">Back to Top <i class="fas fa-arrow-up"></i></a>
-            </div>
+    <!-- Contact -->
+    <section class="section section--alt" id="contact">
+      <div class="container contact">
+        <p class="section__kicker">06 · Contact</p>
+        <h2 class="section__title">Let's build something with leverage</h2>
+        <p class="contact__lede">
+          Available for consulting, full-time roles, and speaking. If you need cloud architecture,
+          DevOps, or LLMs put to work inside your engineering workflow, I'd like to hear about it.
+        </p>
+        <div class="contact__actions">
+          <a class="btn btn--primary" href="mailto:johnbroberts@gmail.com">johnbroberts@gmail.com</a>
+          <button class="btn btn--ghost" type="button" id="copy-email" data-email="johnbroberts@gmail.com">Copy email</button>
         </div>
-    </footer>
+        <ul class="socials">
+          <li><a href="https://github.com/roberjo">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/roberjo">LinkedIn</a></li>
+        </ul>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
 
-    <!-- Scripts -->
-    <script src="assets/js/main.js"></script>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span id="year">2026</span> John B. Roberts</span>
+      <span class="footer__mono">Static HTML &amp; CSS · hosted on GitHub Pages</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
 </body>
-
 </html>
