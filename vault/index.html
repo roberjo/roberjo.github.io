@@ -1,0 +1,90 @@
+<!doctype html>
+<!--
+  ROOM III · THE MAINFRAME VAULT
+  You ignored robots.txt. An auditor would be proud.
+  The fragment on this page is not ASCII. Mainframes never cared for ASCII.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>VAULT · ACCESS CONTROL</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23020a03'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-weight='700' font-size='26' fill='%2333ff66'%3E3270%3C/text%3E%3C/svg%3E">
+  <style>
+    :root { --g: #33ff66; --g2: #1fae46; --dim: #178038; --hi: #b6ff33; --red: #ff5a5a; --bg: #020a03; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); }
+    body {
+      color: var(--g); font: 15px/1.5 "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+      text-shadow: 0 0 6px rgba(51, 255, 102, .45); display: grid; place-items: center; padding: 16px; min-height: 100vh;
+    }
+    body::after { content: ""; position: fixed; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px); }
+    .screen { width: min(820px, 100%); border: 1px solid var(--dim); padding: 18px 22px; white-space: pre-wrap; word-break: break-word; }
+    .row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .hi { color: var(--hi); } .dim { color: var(--dim); } .red { color: var(--red); text-shadow: 0 0 6px rgba(255,90,90,.5); }
+    .blink { animation: b 1s steps(1) infinite; } @keyframes b { 50% { opacity: 0; } }
+    hr { border: 0; border-top: 1px dashed var(--dim); margin: 14px 0; }
+    .hex { font-size: 22px; letter-spacing: .12em; color: var(--hi); }
+    a { color: var(--hi); }
+    .fine { color: var(--dim); font-size: 12px; }
+    label { color: var(--g2); }
+    input { background: transparent; border: 0; border-bottom: 1px solid var(--dim); color: var(--hi); font: inherit; width: 14ch; outline: none; }
+    @media (prefers-reduced-motion: reduce) { .blink { animation: none; } }
+  </style>
+</head>
+<body>
+  <main class="screen" aria-label="Mainframe vault security screen (part of a puzzle)"><div class="row"><span>VAULT01                 ACCESS CONTROL FACILITY</span><span id="clock" class="dim">--:--:--</span></div><div class="row dim"><span>COMMAND ===&gt;</span><span>SCROLL ===&gt; CSR</span></div>
+<hr><span class="red">ICH408I USER(VISITOR ) GROUP(PUBLIC  ) NAME(CURIOUS HUMAN )</span>
+<span class="red">  RESOURCE(PROD.DEPLOY.KEY.FRAGMENT.III) ACCESS INTENT(READ)</span>
+<span class="red">  INSUFFICIENT ACCESS AUTHORITY. NO APPROVED CHANGE TICKET.</span>
+
+<span>ROOM III · THE MAINFRAME VAULT</span>
+<span class="dim">2001 · AT&amp;T   ·   2008 · Aflac</span>
+
+Seven years at AT&amp;T mining data in C/C++, before anyone called it
+"big data". A stint as an international technical systems auditor.
+Then Aflac, where nothing reached production without a change ticket.
+
+The lesson from both: the boring systems are the ones the money runs on.
+
+<label for="ticket">ENTER CHANGE TICKET ===&gt;</label> <input id="ticket" autocomplete="off" spellcheck="false" aria-describedby="resp"><span class="blink">_</span>
+<span id="resp" class="dim" aria-live="polite"> </span>
+<hr><span class="dim">SMF TYPE 80 RECORD (DENIED ACCESS) · FIELD: FRAGMENT · CODEPAGE 037</span>
+
+  <span class="hex">C3 D6 C2 D6 D3</span>
+
+<span class="fine">AUDITOR'S NOTE: The denied request was logged with the fragment it tried to read,
+in the house character set. Nobody reads the fine print except auditors.
+C1-C9 = A-I   D1-D9 = J-R   E2-E9 = S-Z
+
+Claim it in the shell on the home page:  `  then  take &lt;FRAGMENT&gt;
+The last fragment is where developers hide things from clients. (F12.)</span>
+
+<a href="/">PF3=EXIT</a>   <span class="dim">PF7=UP  PF8=DOWN  PF12=CANCEL</span></main>
+  <script>
+    // A change ticket won't open this vault. It never did. But the attempt is appreciated.
+    (function () {
+      var c = document.getElementById("clock");
+      function tick() { c.textContent = new Date().toTimeString().slice(0, 8); }
+      tick(); setInterval(tick, 1000);
+      var input = document.getElementById("ticket"), resp = document.getElementById("resp");
+      var replies = [
+        "CHG REJECTED: CAB MEETS THURSDAYS. TODAY IS NOT THURSDAY.",
+        "CHG REJECTED: MISSING BACKOUT PLAN.",
+        "CHG REJECTED: IMPLEMENTER AND APPROVER CANNOT BE THE SAME PERSON.",
+        "CHG REJECTED: FREEZE WINDOW IN EFFECT.",
+        "CHG REJECTED: READ THE FINE PRINT. THE FRAGMENT IS ALREADY ON THIS SCREEN."
+      ];
+      var i = 0;
+      input.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter") return;
+        resp.textContent = replies[Math.min(i++, replies.length - 1)];
+        input.value = "";
+      });
+      document.addEventListener("keydown", function (e) { if (e.key === "F3") { e.preventDefault(); location.href = "/"; } });
+      input.focus({ preventScroll: true });
+    })();
+  </script>
+</body>
+</html>
