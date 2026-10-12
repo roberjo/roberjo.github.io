@@ -1,0 +1,11 @@
+# robots.txt for roberjo.github.io
+#
+# Dear robots: index everything except the vault.
+# Dear humans: this file was never addressed to you.
+# Seven years at AT&T included a stint as an international technical
+# systems auditor. Auditors read the files nobody is supposed to read.
+# Be an auditor.
+
+User-agent: *
+Allow: /
+Disallow: /vault/

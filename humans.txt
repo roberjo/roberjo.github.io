@@ -1,0 +1,24 @@
+/* TEAM */
+  Built by: John B. Roberts
+  Role: Sr. Software Engineer / Cloud Solutions Architect / Dev Lead
+  Site: https://roberjo.github.io
+  GitHub: https://github.com/roberjo
+  LinkedIn: https://linkedin.com/in/roberjo
+  From: LaGrange, Georgia, USA
+
+/* CAREER, ABRIDGED */
+  1999  Auburn University ........ first website, first web server
+  2001  AT&T ..................... C/C++ data mining, AT&T Labs, auditing
+  2008  Aflac .................... change management (every change, a ticket)
+  2010  GDIT ..................... VB.NET -> .NET 4, automated builds
+  2011  Kelsey Advertising ....... agency platforms, Pi kiosks, dashboards
+  2013  Regions Financial ........ enterprise AWS, and counting
+
+/* SITE */
+  Standards: HTML, CSS, JavaScript modules, WebGL. No framework, no build step.
+  Hosting: GitHub Pages
+  Fonts: Inter, JetBrains Mono
+
+/* THANKS */
+  To everyone who reads the source. There's a quest in it.
+  Start at the very top of index.html.
