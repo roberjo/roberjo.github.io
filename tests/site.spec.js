@@ -185,6 +185,7 @@ test('BBS: boards, file downloads, and log off', async ({ page, isMobile }) => {
     await expect(out).toContainText('Mainframe Underground');
     await send('2'); await send('1');
     await expect(out).toContainText('mainframe-frontier');
+    await expect(page.locator('#shell-prompt')).toHaveText('[Enter] back:');
     await send(''); await send('q'); await send('q');
 
     await send('f');
@@ -192,6 +193,7 @@ test('BBS: boards, file downloads, and log off', async ({ page, isMobile }) => {
     await send('6'); await send('1');
     await input.press('Enter'); // skip the transfer animation
     await expect(out).toContainText('The real zero-day was the patch you didn\'t apply.');
+    await expect(page.locator('#shell-prompt')).toHaveText('[Enter] back:');
     await send(''); await send('q'); await send('q');
 
     await send('w');
@@ -225,6 +227,38 @@ test('shell window buttons minimize, restore, maximize, close', async ({ page })
     await page.locator('[data-win="close"]').click();
     await expect(shell).toBeHidden();
     await expect(page.locator('#shell-dock')).toBeHidden();
+});
+
+test('phreak: whistle seizes a trunk, bluebox reaches Lisbon time and temperature', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'backtick shortcut is a desktop feature');
+    // Headless browsers may expose voices without an audio device, so speech never ends; the
+    // transcript is what's under test here, not the browser's text-to-speech engine.
+    await page.addInitScript(() => { Object.defineProperty(window, 'speechSynthesis', { value: undefined }); });
+    await page.route('https://api.open-meteo.com/**', (route) =>
+        route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ current: { temperature_2m: 21.4 } }) }));
+    await page.goto('/');
+    const input = await openShell(page);
+    const out = page.locator('#shell-out');
+    const send = async (v) => { await input.fill(v); await input.press('Enter'); };
+
+    await send('bluebox palace');
+    await expect(out).toContainText('no trunk');
+    await send('whistle');
+    await expect(out).toContainText('2600 Hz');
+    await expect(out).toContainText('The trunk is idle');
+    await send('bluebox palace');
+    await expect(out).toContainText('KP 44 2079460018 ST');
+    await expect(out).toContainText('Buckingham Palace switchboard (simulated)', { timeout: 15000 });
+    await expect(out).toContainText('The operator hung up', { timeout: 15000 });
+
+    await send('bluebox lisbon');
+    await expect(out).toContainText('Lisbon time and temperature', { timeout: 15000 });
+    const lisbon = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date());
+    await expect(out).toContainText(`At the tone, the time in Lisbon will be`, { timeout: 15000 });
+    await expect(out).toContainText(lisbon.slice(0, 2));
+    await expect(out).toContainText('Temperature in Lisbon: 21 °C');
+    await send('hangup');
+    await expect(out).toContainText('Line released');
 });
 
 test('404 page and vault page load', async ({ page }) => {

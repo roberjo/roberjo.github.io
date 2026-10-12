@@ -6,6 +6,7 @@
 import { PROFILE, PROJECTS, SKILLS, CAREER, EDUCATION } from "./data.js";
 import { getGithubSummary } from "./github.js";
 import { createBBS } from "./bbs.js";
+import { phreak, DESTINATIONS, lisbonTime, lisbonTemperature, lisbonScript, degrade } from "./phreak.js";
 
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -287,6 +288,59 @@ export function initShell() {
         print(`Modem speaker ${on ? "on (ATM1)" : "off (ATM0)"}.`, "sh-dim");
       },
     },
+    whistle: {
+      desc: "blow a 2600 Hz Cap'n Crunch whistle",
+      async run() {
+        const sound = store.get("bbs.sound", true);
+        line(`<span class="sh-dim">You blow the bo'sun whistle from a 1971 box of Cap'n Crunch into the mouthpiece …</span>`);
+        line(`<span class="sh-val">♪ 2600 Hz ♪</span>`);
+        await phreak.whistle(sound);
+        line(`<span class="sh-dim">*kerchunk*</span> <span class="sh-ok">The far end thinks you hung up. The trunk is idle, and it's yours.</span>`);
+        line(`<span class="sh-dim">Now route a call with MF tones: </span><span class="sh-cmd">bluebox palace</span><span class="sh-dim"> · </span><span class="sh-cmd">bluebox heathrow</span><span class="sh-dim"> · </span><span class="sh-cmd">bluebox lisbon</span>`);
+        line(`<span class="sh-dim">(Museum piece: in-band signaling like this died when networks moved to out-of-band SS7. The SysOp spent 2001–2008 at AT&amp;T; Ma Bell says hi.)</span>`);
+      },
+    },
+    bluebox: {
+      desc: "bluebox <palace|heathrow|lisbon>",
+      complete: Object.keys(DESTINATIONS),
+      async run(args) {
+        const key = (args[0] || "").toLowerCase();
+        const dest = DESTINATIONS[key];
+        if (!dest) return print("bluebox: where to? palace, heathrow, or lisbon", "sh-err");
+        if (!phreak.trunkSeized) return print("bluebox: no trunk. All you hear is a dial tone. Seize one first: whistle", "sh-err");
+        const sound = store.get("bbs.sound", true);
+        const tempP = key === "lisbon" ? lisbonTemperature() : null;
+
+        line(`<span class="sh-dim">MF</span> <span class="sh-val">KP ${esc(dest.country)} ${esc(dest.number)} ST</span>`);
+        await phreak.mf(sound, dest.country + dest.number);
+        for (const hop of dest.route.slice(1)) {
+          line(`<span class="sh-dim">  ↳</span> ${esc(hop)}`);
+          await new Promise((r) => setTimeout(r, 220));
+        }
+        line(`<span class="sh-dim">Ringing (${dest.ring === "uk" ? "UK double ring, 400+450 Hz" : "Portuguese ring, 425 Hz"}) …</span>`);
+        await phreak.ring(sound, dest.ring);
+        line(`<span class="sh-ok">Connected:</span> <span class="sh-key">${esc(dest.label)}</span>`);
+
+        if (key === "lisbon") {
+          const temp = await tempP;
+          const { pt, en } = lisbonScript(lisbonTime(), temp);
+          pt.forEach((l, i) => line(`<span class="sh-val">${esc(degrade(l))}</span> <span class="sh-dim">· ${esc(en[i])}</span>`));
+          if (temp === null) line(`<span class="sh-dim">(Live weather lookup failed; the tape skipped that part.)</span>`);
+          const spoke = await phreak.speak(sound, pt, dest.lang);
+          phreak.beep(sound);
+          line(`<span class="sh-dim">*beep* … the recording loops. ${spoke ? "" : "(No Portuguese voice in this browser, so the tape reads silently.) "}Type 'hangup'.</span>`);
+        } else {
+          const lines = dest.script();
+          lines.forEach((l) => line(`<span class="sh-val">“${esc(l)}”</span>`));
+          await phreak.speak(sound, lines, dest.lang);
+          line(`<span class="sh-dim">*click* The operator hung up. The trunk is still yours. Try another, or 'hangup'.</span>`);
+        }
+      },
+    },
+    hangup: {
+      desc: "drop the line",
+      run() { phreak.hangUp(); print("*click* Line released. Dial tone.", "sh-dim"); },
+    },
     xyzzy: { run: () => print("A hollow voice says \"Fool.\" (Wrong adventure. Try 'quest'.)", "sh-dim") },
 
     /* ---- the adventure ---- */
@@ -504,6 +558,7 @@ export function initShell() {
 
   function close() {
     bbs.hangUp();
+    phreak.hangUp();
     dialog.classList.remove("is-max");
     hide();
     if (dock) dock.hidden = true;
@@ -532,7 +587,7 @@ export function initShell() {
   dialog.querySelector(".terminal__bar")?.addEventListener("dblclick", (e) => { if (!e.target.closest("button")) toggleMax(); });
   dock?.addEventListener("click", () => { show(); setTimeout(() => input.focus(), 0); });
   // Esc closes the dialog natively; make sure the modem hangs up too.
-  dialog.addEventListener("close", () => bbs.hangUp());
+  dialog.addEventListener("close", () => { bbs.hangUp(); phreak.hangUp(); });
   dialog.addEventListener("click", (e) => { if (e.target === dialog) close(); });
   document.querySelectorAll("[data-shell-close]").forEach((b) => b.addEventListener("click", close));
 
