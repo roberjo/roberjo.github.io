@@ -231,6 +231,7 @@ kbd {
 }
 .badge--aws { background: rgba(255, 153, 0, .14); color: #ff9900; border: 1px solid rgba(255, 153, 0, .35); }
 [data-theme="light"] .badge--aws { color: #b36b00; }
+.badge--cred { background: var(--accent-soft); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); }
 
 /* ---------- Hero ---------- */
 .hero { position: relative; min-height: calc(100svh - var(--nav-h)); display: flex; align-items: center; padding: 56px 0 88px; overflow: hidden; isolation: isolate; }
