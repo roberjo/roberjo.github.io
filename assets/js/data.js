@@ -4,13 +4,12 @@
 export const PROFILE = {
   name: "John B. Roberts",
   handle: "roberjo",
-  title: "AWS Solutions Architect / AI Automation",
+  title: "Cloud Solutions Architect / AI Automation",
   location: "LaGrange, Georgia, USA",
   headline: "Sr. Software Engineer · Cloud Solutions Architect · Dev Lead",
   email: "johnbroberts@gmail.com",
   github: "https://github.com/roberjo",
   linkedin: "https://linkedin.com/in/roberjo",
-  certs: ["AWS Certified Solutions Architect – Professional", "AWS Certified DevOps Engineer – Professional"],
   about:
     "I build high-leverage software systems: cloud architectures on AWS, automation that removes toil, " +
     "and AI workflows that put LLMs to work inside real engineering processes. Secure, cost-aware, observable, and tested.",
@@ -95,7 +94,7 @@ export const CAREER = [
     note: "Site design and web server upkeep for the Cellular and Molecular Biosciences research department." },
 ];
 
-export const EDUCATION = [{ school: "Auburn University" }];
+export const EDUCATION = [{ school: "Auburn University", degree: "BS, Computer Science", years: "1996 – 2001" }];
 
 export const SECTIONS = [
   { id: "top", label: "Home" },

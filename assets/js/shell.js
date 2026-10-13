@@ -188,14 +188,13 @@ export function initShell() {
         });
       },
     },
-    education: { desc: "schooling", run: () => EDUCATION.forEach((e) => print(e.school)) },
+    education: { desc: "schooling", run: () => EDUCATION.forEach((e) => line(`<span class="sh-key">${esc(e.degree)}</span> · ${esc(e.school)} <span class="sh-dim">${esc(e.years)}</span>`)) },
     skills: {
       desc: "the toolbox",
       run() {
         Object.entries(SKILLS).forEach(([k, v]) => line(`<span class="sh-key">${esc(k.padEnd(14))}</span>${esc(v.join(", "))}`));
       },
     },
-    certs: { desc: "certifications", run: () => PROFILE.certs.forEach((c) => line(`<span class="sh-ok">✔</span> ${esc(c)}`)) },
     contact: {
       desc: "how to reach me",
       run() {
@@ -233,7 +232,7 @@ export function initShell() {
           `<span class="sh-key">Uptime</span>   ${since} years (first deploy: 1999, Auburn)`,
           `<span class="sh-key">Kernel</span>   Regions Financial, 2013 – present`,
           `<span class="sh-key">Shell</span>    this one (try 'quest')`,
-          `<span class="sh-key">Certs</span>    AWS SA Pro · AWS DevOps Pro`,
+          `<span class="sh-key">Degree</span>   BS Computer Science, Auburn`,
           `<span class="sh-key">Langs</span>    Python, TypeScript, Rust, C#, COBOL, C/C++`,
           `<span class="sh-key">Theme</span>    ${document.documentElement.getAttribute("data-theme")}`,
         ];
